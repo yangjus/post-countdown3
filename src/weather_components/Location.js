@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect} from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Coordinates from './Coordinates.js';
+import Navbar from '../Navbar.js';
 
 const Location = (props) => {
 
@@ -36,7 +37,7 @@ const Location = (props) => {
         url.searchParams.append("zip", zip);
         url.searchParams.append("appid", props.api_key);
         good_url += url.toString().replace("%2C",",");
-        console.log(good_url);
+        {/*console.log(good_url)*/};
         console.log(typeof good_url);
         setUrl(good_url);
         setRenderWeather(true);
@@ -44,6 +45,8 @@ const Location = (props) => {
 
     return (
         <>
+        <Navbar />
+        <h1>Weather Forecast App</h1>
         <h3>Location Input</h3>
         <p>Input your zip code and 
             <a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes" target="_blank"> ISO 3166 (Alpha-2) </a> 

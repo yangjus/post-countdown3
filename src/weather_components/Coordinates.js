@@ -8,12 +8,14 @@ const Coordinates = (props) => {
 
     const [data, setData] = useState();
     const [newUrl, setUrl] = useState("");
-    const [loop, setLoop] = useState(true);
 
     useEffect(() => {
         fetch(coords_url)
         .then((res) => res.json())
-        .then(jsonData => setData(jsonData))
+        .then(jsonData => {
+            findUrl(jsonData);
+            setData(jsonData);
+        })
     }, [])
 
     const findUrl = (coord_data) => {
@@ -24,15 +26,11 @@ const Coordinates = (props) => {
         url.searchParams.append("units", "imperial")
         url.searchParams.append("appid", props.api_key);
         good_url += url.toString()
-        console.log(good_url);
+        {/*console.log(good_url)*/};
         setUrl(good_url);
-        setLoop(false);
     };
 
     if (data) {
-        if (loop) {
-            findUrl(data);
-        }
         return (
             <>
             {/*{JSON.stringify(data, null, 2)}*/}

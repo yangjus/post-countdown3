@@ -11,14 +11,13 @@ const IndividualHour = (props) => {
     };
 
     const [loop, setLoop] = useState(true);
-    const [time, setTime] = useState(1);
+    const [time, setTime] = useState(parseInt(props.time));
     const [ampm, setAmpm] = useState(props.ampm);
 
-    const Time = (hoursPast, hour) => {
-        setTime(time + parseInt(hour));
-        setTime(time + hoursPast);
+    const Time = (hoursPast) => {
+        /*setTime(time + hoursPast)*/;
         if (props.hoursPast > 11) {
-            setTime(time + hoursPast - 12);
+            /*setTime(time - 12)*/
             if (ampm == "AM") {
                 setAmpm("PM");
             }
@@ -26,11 +25,21 @@ const IndividualHour = (props) => {
                 setAmpm("AM");
             }
         }
+    };
+
+    const CurrentTime = () => {
+        const time_colon = props.timeString.split(":")[0];
+        let parsed_time = time_colon.split(" ")[1];
+        
+        {/* cannot update state when calling setState() multiple times in one call*/}
+        setTime(time + parseInt(parsed_time));
+        console.log(time);
         setLoop(false);
     };
 
     if (loop) {
-        Time(props.hoursPast, props.time);
+        CurrentTime();
+        Time(props.hoursPast);
     }
 
     return(

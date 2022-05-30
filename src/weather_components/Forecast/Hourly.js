@@ -4,7 +4,7 @@ import IndividualHour from './IndividualHour.js';
 
 const Hourly = (props) => {
 
-    const [hour, setHour] = useState();
+    const [hour, setHour] = useState(1);
     const [loop, setLoop] = useState(true);
     const [ampm, setAmpm] = useState("");
 
@@ -23,12 +23,11 @@ const Hourly = (props) => {
     
     if (loop) {
         parseTime();
-        console.log(hour);
     }
 
     let rows = [];
     for (let i = 1; i < 24; i++) {
-        rows.push(<IndividualHour time={hour} hoursPast={i} ampm={ampm} main={data[i].weather[0].main} icon={data[i].weather[0].icon}
+        rows.push(<IndividualHour timeString={props.time} hoursPast={i} ampm={ampm} main={data[i].weather[0].main} icon={data[i].weather[0].icon}
             desc={data[i].weather[0].description} temp={data[i].temp} humidity={data[i].humidity} wind={data[i].wind_speed}/>);
     }
 
